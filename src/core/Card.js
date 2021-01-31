@@ -3,7 +3,12 @@ import React from 'react'
 import ImageHelper from './helper/image_helper'
 
 
-export const Card = ({product}) => {
+export const Card = ({
+    product,
+    addtoCart = true,
+    removeFromCart = false,
+    reload = undefined,
+}) => {
     return (
         <div className="card text-white bg-dark border border-info ">
         <div className="card-header lead">{product.name}</div>
