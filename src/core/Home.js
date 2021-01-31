@@ -1,6 +1,10 @@
 import { useEffect } from "react"
 import React, {useState} from 'react'
 import get_products from "./helper/coreapi_calls"
+import Base from "./Base"
+import { Card } from "./Card"
+
+
 
 export default function Home() {
     const [products, setProducts] = useState([])
@@ -25,11 +29,15 @@ export default function Home() {
 
 
     return (
+        <Base title="Home Page" description="Welcome to Gabkings T-shirt store">
         <div className="row">
             {products.map((product, i) =>{
-                return (<div className="col-md-4" key={i}>{product.name}</div>)
+                return (<div className="col-md-4" key={i}>
+                    <Card product={product} />
+                </div>)
             })}
         </div>
+        </Base>
     )
 }
 
