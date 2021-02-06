@@ -1,5 +1,7 @@
 const URL = "http://127.0.0.1:8000/api/user/"
 
+import {removeCart} from '../../core/helper/cart_helper'
+
 
 
 export const singup = async user => {
@@ -36,3 +38,42 @@ export const signin = async user => {
         return console.log(err)
     }
 }
+
+
+export const authenticate = (data, next) => {
+    if(typeof window !== undefined){
+        localStorage.setItem("jwt", JSON.stringify(data))
+        next()
+    }
+}
+
+export const isAuthenticated = () =>{
+    if(typeof window == undefined){
+        return false
+    }
+    if(localStorage.getItem("jwt")){
+        return JSON.parse(localStorage.getItem("jwt"))
+    }
+    return false
+}
+
+export const signout = (next) => {
+    const userId = isAuthenticated() && isAuthenticated().user.id;
+  
+    console.log("USERID: ", userId);
+  
+    if (typeof window !== undefined) {
+      localStorage.removeItem("jwt");
+      removeCart(() => {});
+      //next();
+  
+      return fetch(`${API}user/logout/${userId}`, {
+        method: "GET",
+      })
+        .then((response) => {
+          console.log("Signout success");
+          next();
+        })
+        .catch((err) => console.log(err));
+    }
+  };
