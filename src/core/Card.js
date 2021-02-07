@@ -10,7 +10,7 @@ import ImageHelper from './helper/image_helper'
 export const Card = ({
     product,
     addtoCart = true,
-    removeFromCart = true,
+    removeFromCart = false,
     reload = undefined,
 }) => {
 

@@ -1,7 +1,7 @@
-const URL = "http://127.0.0.1:8000/api/user/"
 
 import {removeCart} from '../../core/helper/cart_helper'
 
+const URL = "http://127.0.0.1:8000/api/user/"
 
 
 export const singup = async user => {
@@ -27,7 +27,7 @@ export const signin = async user => {
         formData.append(name, user[name]);
       }
       try {
-        const response = await fetch(`${URL}login`, {
+        const response = await fetch(`${URL}login/`, {
             method: "POST",
 
             body: formData,
@@ -67,7 +67,7 @@ export const signout = (next) => {
       removeCart(() => {});
       //next();
   
-      return fetch(`${API}user/logout/${userId}`, {
+      return fetch(`${URL}user/logout/${userId}/`, {
         method: "GET",
       })
         .then((response) => {
